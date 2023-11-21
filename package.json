@@ -1,28 +1,63 @@
 {
   "name": "tetris-overload-v2",
+  "version": "0.1.0",
   "private": true,
-  "version": "0.0.0",
   "type": "module",
+  "engines": {
+    "node": ">=20 <21"
+  },
+  "packageManager": "pnpm@8.10.5",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "lint": "eslint . --ext ts,tsx,js,jsx --report-unused-disable-directives --max-warnings 0",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "preview": "vite preview",
+    "commit": "cz",
+    "preinstall": "npx only-allow pnpm",
+    "prepare": "husky install"
   },
   "dependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react": "~18.2",
+    "react-dom": "~18.2"
   },
   "devDependencies": {
-    "@types/react": "^18.2.37",
-    "@types/react-dom": "^18.2.15",
-    "@typescript-eslint/eslint-plugin": "^6.10.0",
-    "@typescript-eslint/parser": "^6.10.0",
-    "@vitejs/plugin-react-swc": "^3.5.0",
-    "eslint": "^8.53.0",
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-react-refresh": "^0.4.4",
-    "typescript": "^5.2.2",
-    "vite": "^5.0.0"
+    "@commitlint/cli": "~18.4",
+    "@commitlint/config-conventional": "~18.4",
+    "@types/eslint": "~8.44",
+    "@types/react": "~18.2",
+    "@types/react-dom": "~18.2",
+    "@typescript-eslint/eslint-plugin": "~6.10",
+    "@typescript-eslint/parser": "~6.10",
+    "@vitejs/plugin-react-swc": "~3.5",
+    "commitizen": "~4.3",
+    "cz-conventional-changelog": "~3.3",
+    "eslint": "~8.53",
+    "eslint-plugin-react": "~7.33",
+    "eslint-plugin-react-hooks": "~4.6",
+    "eslint-plugin-react-refresh": "~0.4",
+    "husky": "~8.0",
+    "lint-staged": "~15.1",
+    "prettier": "~3.1",
+    "typescript": "~5.2",
+    "vite": "~5.0"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx}": [
+      "eslint --report-unused-disable-directives --max-warnings 0",
+      "prettier --write"
+    ],
+    "*.{css,scss,html,json,md,yml,yaml}": "prettier --write"
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
   }
 }
