@@ -125,17 +125,16 @@ const EMPTY_BINDINGS = {
   },
 };
 
-export const getNUMPADKeyBindings = () => JSON.parse(JSON.stringify(NUMPAD_BINDINGS));
-export const getQWERKeyBindings = () => JSON.parse(JSON.stringify(QWER_BINDINGS));
-export const getEmptyKeyBindings = () => JSON.parse(JSON.stringify(EMPTY_BINDINGS));
+export const getNUMPADKeyBindings = () =>
+  JSON.parse(JSON.stringify(NUMPAD_BINDINGS));
+export const getQWERKeyBindings = () =>
+  JSON.parse(JSON.stringify(QWER_BINDINGS));
+export const getEmptyKeyBindings = () =>
+  JSON.parse(JSON.stringify(EMPTY_BINDINGS));
 
 // Modes
 export const NUMPAD_MODE = 'Numeric Keypad';
 export const QWER_MODE = 'Arrows + QWER';
 export const CUSTOM_MODE = 'Custom';
 
-export const keyBindingsModes = [
-  NUMPAD_MODE,
-  QWER_MODE,
-  CUSTOM_MODE,
-];
+export const keyBindingsModes = [NUMPAD_MODE, QWER_MODE, CUSTOM_MODE];

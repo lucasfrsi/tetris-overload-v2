@@ -13,26 +13,13 @@ import { initializeKey, setKeyValue, OPTIONS_KEY } from 'utils/localStorage';
 
 export const useOptions = ({ BGM_API, SFX_API, isLocalStorageAvailable }) => {
   const {
-    state: {
-      BGM,
-    },
-    actions: {
-      getBGMHowlVolume,
-      changeBGMHowlVolume,
-      toggleMuteBGM,
-    },
+    state: { BGM },
+    actions: { getBGMHowlVolume, changeBGMHowlVolume, toggleMuteBGM },
   } = BGM_API;
 
   const {
-    state: {
-      SFX,
-    },
-    actions: {
-      getSFXHowlVolume,
-      changeSFXHowlVolume,
-      toggleMuteSFX,
-      playSFX,
-    },
+    state: { SFX },
+    actions: { getSFXHowlVolume, changeSFXHowlVolume, toggleMuteSFX, playSFX },
   } = SFX_API;
 
   // GAME MODE
@@ -117,7 +104,10 @@ export const useOptions = ({ BGM_API, SFX_API, isLocalStorageAvailable }) => {
     const usedKeysLength = usedKeys.size;
     const usedCodesLength = usedKeys.size;
 
-    return usedKeysLength === keyBindingsLength && usedCodesLength === keyBindingsLength;
+    return (
+      usedKeysLength === keyBindingsLength &&
+      usedCodesLength === keyBindingsLength
+    );
   };
 
   // RESET TO DEFAULT
@@ -171,7 +161,11 @@ export const useOptions = ({ BGM_API, SFX_API, isLocalStorageAvailable }) => {
         keyBindings: {},
       };
 
-      const storedOptions = initializeKey(isLocalStorageAvailable, OPTIONS_KEY, defaultOptions);
+      const storedOptions = initializeKey(
+        isLocalStorageAvailable,
+        OPTIONS_KEY,
+        defaultOptions,
+      );
 
       changeGameMode(storedOptions.gameMode);
       changeSFXSliderValue(storedOptions.sfxVolume);
@@ -197,7 +191,6 @@ export const useOptions = ({ BGM_API, SFX_API, isLocalStorageAvailable }) => {
       usedCodes,
       BGM: BGM.mute,
       SFX: SFX.mute,
-
     },
     actions: {
       changeBGMSliderValue,

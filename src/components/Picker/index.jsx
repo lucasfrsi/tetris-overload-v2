@@ -9,9 +9,9 @@ const Picker = ({ state, changeState, possibleStates, playSFX }) => {
   const choicesLength = possibleStates.length;
 
   const onClickHandler = (side) => {
-    if ((side === 'left') && (currentChoicePosition > 0)) {
+    if (side === 'left' && currentChoicePosition > 0) {
       changeState(possibleStates[currentChoicePosition - 1]);
-    } else if ((side === 'right') && (currentChoicePosition < choicesLength - 1)) {
+    } else if (side === 'right' && currentChoicePosition < choicesLength - 1) {
       changeState(possibleStates[currentChoicePosition + 1]);
     }
     playSFX(BUTTON_TOGGLE);

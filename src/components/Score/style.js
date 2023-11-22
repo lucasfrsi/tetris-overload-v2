@@ -15,7 +15,7 @@ export const Title = styled.span`
   margin: 0 0 1rem;
   color: white;
   text-transform: uppercase;
-  `;
+`;
 
 export const Value = styled.span`
   color: white;

@@ -1,11 +1,21 @@
 import PropTypes from 'prop-types';
-import { BUTTON_HOVER, BUTTON_SELECT } from 'utils/SFXPaths';
 import { StyledButton } from './style';
+import { useSFX, SFX } from '@/hooks/useSFX';
 
-const Button = ({ name, onClick, disabled, playSFX }) => {
+interface ButtonProps {
+  name: string;
+  onClick: () => void;
+  disabled?: boolean;
+}
+
+export const Button = ({ name, onClick, disabled }: ButtonProps) => {
+  const {
+    actions: { playSFX },
+  } = useSFX();
+
   const onClickHandler = () => {
     onClick();
-    playSFX(BUTTON_SELECT);
+    playSFX(SFX.BUTTON_SELECT);
   };
 
   return (
@@ -13,7 +23,9 @@ const Button = ({ name, onClick, disabled, playSFX }) => {
       type="button"
       disabled={disabled}
       onClick={onClickHandler}
-      onMouseEnter={() => playSFX(BUTTON_HOVER)}
+      onMouseEnter={() => {
+        playSFX(SFX.BUTTON_HOVER);
+      }}
       tabIndex={-1}
     >
       {name}
@@ -24,13 +36,9 @@ const Button = ({ name, onClick, disabled, playSFX }) => {
 Button.propTypes = {
   name: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
-  playSFX: PropTypes.func,
   disabled: PropTypes.bool,
 };
 
 Button.defaultProps = {
   disabled: false,
-  playSFX: () => {},
 };
-
-export default Button;

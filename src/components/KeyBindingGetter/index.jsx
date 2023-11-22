@@ -53,7 +53,13 @@ const KeyBindingGetter = ({
     const sameInitialKey = initialKey === keyAndCode.key;
     const sameInitialCode = initialCode === keyAndCode.code;
 
-    return inUse && !usedKeysIsEmpty && !usedCodesIsEmpty && !sameInitialKey && !sameInitialCode;
+    return (
+      inUse &&
+      !usedKeysIsEmpty &&
+      !usedCodesIsEmpty &&
+      !sameInitialKey &&
+      !sameInitialCode
+    );
   };
 
   useEffect(() => {
@@ -77,9 +83,13 @@ const KeyBindingGetter = ({
           <table>
             <tbody>
               <tr>
-                <td><i>{initialKey || 'None'}</i></td>
+                <td>
+                  <i>{initialKey || 'None'}</i>
+                </td>
                 <td>|</td>
-                <td><i>{initialCode || 'None'}</i></td>
+                <td>
+                  <i>{initialCode || 'None'}</i>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -87,9 +97,13 @@ const KeyBindingGetter = ({
           <table>
             <tbody>
               <tr>
-                <td><i>{keyAndCode.key || 'None'}</i></td>
+                <td>
+                  <i>{keyAndCode.key || 'None'}</i>
+                </td>
                 <td>|</td>
-                <td><i>{keyAndCode.code || 'None'}</i></td>
+                <td>
+                  <i>{keyAndCode.code || 'None'}</i>
+                </td>
               </tr>
             </tbody>
           </table>

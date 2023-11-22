@@ -7,8 +7,8 @@ export const getterWrapper = css`
   max-width: 102.4rem;
   width: 100%;
   height: 100%;
-  background-color: rgba(1, 1, 1, .8);
-  
+  background-color: rgba(1, 1, 1, 0.8);
+
   &:focus,
   &:active {
     outline: none;
@@ -26,8 +26,8 @@ export const getter = css`
   flex-direction: column;
 
   border: 2px solid white;
-  background-color: rgba(1, 1, 1, .4);
-  backdrop-filter: blur(.2rem);
+  background-color: rgba(1, 1, 1, 0.4);
+  backdrop-filter: blur(0.2rem);
 `;
 
 export const text = css`

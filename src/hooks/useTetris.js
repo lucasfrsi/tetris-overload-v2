@@ -1,36 +1,43 @@
 import { useCallback, useEffect } from 'react';
 import { checkCollision } from 'utils/gameHelpers';
-import { TETROMINO_MERGE, TETROMINO_MOVE, PAUSE_IN, PAUSE_OUT, BUTTON_SELECT, VO_GAME_OVER, GAME_OVER, VO_CONGRATULATIONS, VO_NEW_HIGHSCORE, NEW_HIGHSCORE, BUTTON_START } from 'utils/SFXPaths';
+import {
+  TETROMINO_MERGE,
+  TETROMINO_MOVE,
+  PAUSE_IN,
+  PAUSE_OUT,
+  BUTTON_SELECT,
+  VO_GAME_OVER,
+  GAME_OVER,
+  VO_CONGRATULATIONS,
+  VO_NEW_HIGHSCORE,
+  NEW_HIGHSCORE,
+  BUTTON_START,
+} from 'utils/SFXPaths';
 import { MENU, INGAME } from 'utils/BGMPaths';
 import { INGAME_PAGE } from 'utils/pagesMap';
 
 export const useTetris = ({
-  skillsAPI, gameStatusAPI, playerAPI, stageAPI, pieceHoldersAPI, SFX_API, BGM_API, optionsAPI,
+  skillsAPI,
+  gameStatusAPI,
+  playerAPI,
+  stageAPI,
+  pieceHoldersAPI,
+  SFX_API,
+  BGM_API,
+  optionsAPI,
 }) => {
   const {
-    state: {
-      player,
-    },
-    actions: {
-      updatePlayerPos,
-      getPlayerNextPiece,
-      resetPlayer,
-    },
+    state: { player },
+    actions: { updatePlayerPos, getPlayerNextPiece, resetPlayer },
   } = playerAPI;
 
   const {
-    state: {
-      stage,
-    },
-    actions: {
-      resetStage,
-    },
+    state: { stage },
+    actions: { resetStage },
   } = stageAPI;
 
   const {
-    actions: {
-      resetPieceHolders,
-    },
+    actions: { resetPieceHolders },
   } = pieceHoldersAPI;
 
   const {
@@ -64,30 +71,19 @@ export const useTetris = ({
   } = gameStatusAPI;
 
   const {
-    actions: {
-      resetSkills,
-      removePixelPocketCooldown,
-    },
+    actions: { resetSkills, removePixelPocketCooldown },
   } = skillsAPI;
 
   const {
-    actions: {
-      playSFX,
-    },
+    actions: { playSFX },
   } = SFX_API;
 
   const {
-    actions: {
-      playBGM,
-      stopBGM,
-      pauseBGM,
-    },
+    actions: { playBGM, stopBGM, pauseBGM },
   } = BGM_API;
 
   const {
-    state: {
-      gameMode,
-    },
+    state: { gameMode },
   } = optionsAPI;
 
   const resetGame = useCallback(() => {
@@ -96,7 +92,13 @@ export const useTetris = ({
     resetPlayer();
     resetStage();
     resetPieceHolders();
-  }, [resetGameStatus, resetPieceHolders, resetPlayer, resetSkills, resetStage]);
+  }, [
+    resetGameStatus,
+    resetPieceHolders,
+    resetPlayer,
+    resetSkills,
+    resetStage,
+  ]);
 
   const goToTetris = () => {
     setPageToIngame();

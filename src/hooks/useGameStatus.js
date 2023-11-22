@@ -1,8 +1,19 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
-import { CLEAR_SINGLE, CLEAR_DOUBLE, CLEAR_TRIPLE, CLEAR_TETRIS, LEVEL_UP, VO_LEVEL_UP } from 'utils/SFXPaths';
+import {
+  CLEAR_SINGLE,
+  CLEAR_DOUBLE,
+  CLEAR_TRIPLE,
+  CLEAR_TETRIS,
+  LEVEL_UP,
+  VO_LEVEL_UP,
+} from 'utils/SFXPaths';
 import { SCORES_KEY, initializeKey, setKeyValue } from 'utils/localStorage';
 import { MENU_PAGE, OPTIONS_PAGE, INGAME_PAGE } from 'utils/pagesMap';
-import { CLASSIC_MODE, CLASSIC_OVERLOAD_MODE, PROGRESSIVE_OVERLOAD_MODE } from 'utils/gameModes';
+import {
+  CLASSIC_MODE,
+  CLASSIC_OVERLOAD_MODE,
+  PROGRESSIVE_OVERLOAD_MODE,
+} from 'utils/gameModes';
 
 const clearTable = {
   1: CLEAR_SINGLE,
@@ -19,7 +30,12 @@ const gameModesAbbreviations = {
   [PROGRESSIVE_OVERLOAD_MODE]: 'Progressive',
 };
 
-export const useGameStatus = ({ skillsAPI, SFX_API, isLocalStorageAvailable, optionsAPI }) => {
+export const useGameStatus = ({
+  skillsAPI,
+  SFX_API,
+  isLocalStorageAvailable,
+  optionsAPI,
+}) => {
   const [storedScores, setStoredScores] = useState();
 
   const [currentPage, setCurrentPage] = useState(MENU_PAGE);
@@ -47,13 +63,8 @@ export const useGameStatus = ({ skillsAPI, SFX_API, isLocalStorageAvailable, opt
   const speed = useRef(0);
 
   const {
-    state: {
-      perfectionism,
-    },
-    actions: {
-      calcExp,
-      activatePerfectionism,
-    },
+    state: { perfectionism },
+    actions: { calcExp, activatePerfectionism },
   } = skillsAPI;
 
   const {
@@ -61,9 +72,7 @@ export const useGameStatus = ({ skillsAPI, SFX_API, isLocalStorageAvailable, opt
   } = SFX_API;
 
   const {
-    state: {
-      gameMode,
-    },
+    state: { gameMode },
   } = optionsAPI;
 
   const setPageToMenu = () => setCurrentPage(MENU_PAGE);
@@ -74,14 +83,20 @@ export const useGameStatus = ({ skillsAPI, SFX_API, isLocalStorageAvailable, opt
     if (rowsCleared > 0) {
       playSFX(clearTable[rowsCleared]);
 
-      if (rowsCleared === 4 && perfectionism.currentLevel && !perfectionism.onCooldown) {
+      if (
+        rowsCleared === 4 &&
+        perfectionism.currentLevel &&
+        !perfectionism.onCooldown
+      ) {
         activatePerfectionism();
-        setScore((prev) => Math.ceil(
-          prev
-          + linePoints[rowsCleared - 1]
-          * (level + 1)
-          * perfectionism.modifier[perfectionism.currentLevel],
-        ));
+        setScore((prev) =>
+          Math.ceil(
+            prev +
+              linePoints[rowsCleared - 1] *
+                (level + 1) *
+                perfectionism.modifier[perfectionism.currentLevel],
+          ),
+        );
       } else {
         setScore((prev) => prev + linePoints[rowsCleared - 1] * (level + 1));
       }
@@ -150,7 +165,7 @@ export const useGameStatus = ({ skillsAPI, SFX_API, isLocalStorageAvailable, opt
   };
 
   const coreUpdateSpeed = useCallback(() => {
-    speed.current = 1000 - (level * 50);
+    speed.current = 1000 - level * 50;
   }, [level]);
 
   useEffect(() => {

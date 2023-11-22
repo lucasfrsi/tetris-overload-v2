@@ -16,7 +16,7 @@ const SideButton = ({ buttonName, onClick, playSFX, disabled }) => (
     onMouseEnter={() => playSFX(BUTTON_HOVER)}
     disabled={disabled}
   >
-    { buttonName }
+    {buttonName}
   </button>
 );
 

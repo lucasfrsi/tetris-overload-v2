@@ -17,7 +17,7 @@ export const highScoresBox = css`
   margin: auto 0;
 
   border: 2px solid #333;
-  background-color: rgba(1, 1, 1, .8);
+  background-color: rgba(1, 1, 1, 0.8);
   padding: 2rem;
 
   animation: 0.5s ease-in-out showFromBehind;
@@ -61,20 +61,21 @@ export const highScoresTable = css`
   margin-bottom: 2rem;
   min-width: 42vh;
 
-  th, td {
-    padding: .5rem;
+  th,
+  td {
+    padding: 0.5rem;
   }
 
   th {
     font-size: 1.6rem;
     font-weight: 500;
     border: 2px solid #555;
-    background-color: rgba(255, 255, 255, .2);
+    background-color: rgba(255, 255, 255, 0.2);
   }
 
   td {
     border: 2px solid transparent;
-    background-color: rgba(255, 255, 255, .1);
+    background-color: rgba(255, 255, 255, 0.1);
   }
 
   tr td:nth-child(1) {

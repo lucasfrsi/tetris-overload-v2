@@ -19,7 +19,7 @@ const Countdown = ({ count, playSFX }) => {
     <div css={styles.countdownWrapper}>
       <div css={styles.countdownBox}>
         <span css={styles.countdownAnimated} key={count}>
-          {(count === null) ? null : (count || 'GO!')}
+          {count === null ? null : count || 'GO!'}
         </span>
       </div>
     </div>

@@ -8,17 +8,11 @@ export const usePieceHolders = ({ skillsAPI, playerAPI }) => {
   const [thirdOnQueueStage, setThirdOnQueueStage] = useState();
 
   const {
-    state: {
-      nextPieces,
-      hold,
-    },
+    state: { nextPieces, hold },
   } = playerAPI;
 
   const {
-    state: {
-      clairvoyance,
-      pixelPocket,
-    },
+    state: { clairvoyance, pixelPocket },
   } = skillsAPI;
 
   const createPieceStage = (piece) => {

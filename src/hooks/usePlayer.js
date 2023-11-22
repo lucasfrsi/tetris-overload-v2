@@ -1,6 +1,11 @@
 import { useState, useCallback } from 'react';
 
-import { TETROMINOS, randomTetromino, createNextPiecesArray, restartPool } from 'utils/tetrominos';
+import {
+  TETROMINOS,
+  randomTetromino,
+  createNextPiecesArray,
+  restartPool,
+} from 'utils/tetrominos';
 import { STAGE_WIDTH, checkCollision } from 'utils/gameHelpers';
 
 import { TETROMINO_ROTATE } from 'utils/SFXPaths';
@@ -17,14 +22,14 @@ export const usePlayer = ({ SFX_API }) => {
   });
 
   const {
-    actions: {
-      playSFX,
-    },
+    actions: { playSFX },
   } = SFX_API;
 
   function rotate(matrix, dir) {
     // Make the rows to become cols (transpose)
-    const mtrx = matrix.map((_, index) => matrix.map((column) => column[index]));
+    const mtrx = matrix.map((_, index) =>
+      matrix.map((column) => column[index]),
+    );
     // Reverse each row to get a rotaded matrix
     if (dir > 0) return mtrx.map((row) => row.reverse());
     return mtrx.reverse();
@@ -56,7 +61,7 @@ export const usePlayer = ({ SFX_API }) => {
   const updatePlayerPos = useCallback(({ x, y, collided }) => {
     setPlayer((prev) => ({
       ...prev,
-      pos: { x: (prev.pos.x + x), y: (prev.pos.y + y) },
+      pos: { x: prev.pos.x + x, y: prev.pos.y + y },
       collided,
     }));
   }, []);

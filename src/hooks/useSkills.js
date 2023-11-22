@@ -1,5 +1,12 @@
 import { useState, useCallback, useMemo } from 'react';
-import { PIXEL_POCKET, TETROMINO_MERGE, MIMIC, SKILL_ON_COOLDOWN, SKILL_LEARNED, PERFECTIONISM } from 'utils/SFXPaths';
+import {
+  PIXEL_POCKET,
+  TETROMINO_MERGE,
+  MIMIC,
+  SKILL_ON_COOLDOWN,
+  SKILL_LEARNED,
+  PERFECTIONISM,
+} from 'utils/SFXPaths';
 import * as S from 'utils/skillsMap';
 import { CLASSIC_MODE, CLASSIC_OVERLOAD_MODE } from 'utils/gameModes';
 
@@ -11,9 +18,7 @@ export const useSkills = ({ SFX_API, optionsAPI }) => {
   } = SFX_API;
 
   const {
-    state: {
-      gameMode,
-    },
+    state: { gameMode },
   } = optionsAPI;
 
   const [exp, setExp] = useState(0);
@@ -67,50 +72,59 @@ export const useSkills = ({ SFX_API, optionsAPI }) => {
     setExp((prev) => prev + expFormula);
   }, []);
 
-  const skillsMap = useMemo(() => ({
-    [S.CLAIRVOYANCE]: [clairvoyance, setClairvoyance],
-    [S.PIXELPOCKET]: [pixelPocket, setPixelPocket],
-    [S.MIMIC]: [mimic, setMimic],
-    [S.INTUITION]: [intuition, setIntuition],
-    [S.BLINK]: [blink, setBlink],
-    [S.PERFECTIONISM]: [perfectionism, setPerfectionism],
-  }), [blink, clairvoyance, intuition, mimic, perfectionism, pixelPocket]);
+  const skillsMap = useMemo(
+    () => ({
+      [S.CLAIRVOYANCE]: [clairvoyance, setClairvoyance],
+      [S.PIXELPOCKET]: [pixelPocket, setPixelPocket],
+      [S.MIMIC]: [mimic, setMimic],
+      [S.INTUITION]: [intuition, setIntuition],
+      [S.BLINK]: [blink, setBlink],
+      [S.PERFECTIONISM]: [perfectionism, setPerfectionism],
+    }),
+    [blink, clairvoyance, intuition, mimic, perfectionism, pixelPocket],
+  );
 
-  const canSkillBeLeveled = useCallback((skillKey) => {
-    const [skill] = skillsMap[skillKey];
+  const canSkillBeLeveled = useCallback(
+    (skillKey) => {
+      const [skill] = skillsMap[skillKey];
 
-    const currentSkillLevel = skill.currentLevel;
-    const skillMaxLevel = skill.expCost.length - 1;
-
-    if (currentSkillLevel < skillMaxLevel) {
-      const costToLevel = skill.expCost[currentSkillLevel + 1];
-      if (exp >= costToLevel) {
-        return true;
-      }
-    }
-
-    return false;
-  }, [exp, skillsMap]);
-
-  const levelUpSkill = useCallback((skillKey) => {
-    if (canSkillBeLeveled(skillKey)) {
-      const [skill, setSkill] = skillsMap[skillKey];
       const currentSkillLevel = skill.currentLevel;
-      const costToLevel = skill.expCost[currentSkillLevel + 1];
+      const skillMaxLevel = skill.expCost.length - 1;
 
-      setSkill((prev) => ({
-        ...prev,
-        currentLevel: prev.currentLevel + 1,
-      }));
+      if (currentSkillLevel < skillMaxLevel) {
+        const costToLevel = skill.expCost[currentSkillLevel + 1];
+        if (exp >= costToLevel) {
+          return true;
+        }
+      }
 
-      setExp((prev) => prev - costToLevel);
+      return false;
+    },
+    [exp, skillsMap],
+  );
 
-      playSFX(SKILL_LEARNED);
-      return;
-    }
+  const levelUpSkill = useCallback(
+    (skillKey) => {
+      if (canSkillBeLeveled(skillKey)) {
+        const [skill, setSkill] = skillsMap[skillKey];
+        const currentSkillLevel = skill.currentLevel;
+        const costToLevel = skill.expCost[currentSkillLevel + 1];
 
-    playSFX(SKILL_ON_COOLDOWN);
-  }, [canSkillBeLeveled, playSFX, skillsMap]);
+        setSkill((prev) => ({
+          ...prev,
+          currentLevel: prev.currentLevel + 1,
+        }));
+
+        setExp((prev) => prev - costToLevel);
+
+        playSFX(SKILL_LEARNED);
+        return;
+      }
+
+      playSFX(SKILL_ON_COOLDOWN);
+    },
+    [canSkillBeLeveled, playSFX, skillsMap],
+  );
 
   const putPerfectionismOnCooldown = () => {
     setPerfectionism((prev) => ({
@@ -147,15 +161,18 @@ export const useSkills = ({ SFX_API, optionsAPI }) => {
     }));
   };
 
-  const activateMimic = useCallback((unshiftPlayerTetrominoCopy) => {
-    if (mimic.currentLevel && !mimic.onCooldown) {
-      playSFX(MIMIC);
-      putMimicOnCooldown();
-      unshiftPlayerTetrominoCopy();
-    } else {
-      playSFX(SKILL_ON_COOLDOWN);
-    }
-  }, [mimic.currentLevel, mimic.onCooldown, playSFX]);
+  const activateMimic = useCallback(
+    (unshiftPlayerTetrominoCopy) => {
+      if (mimic.currentLevel && !mimic.onCooldown) {
+        playSFX(MIMIC);
+        putMimicOnCooldown();
+        unshiftPlayerTetrominoCopy();
+      } else {
+        playSFX(SKILL_ON_COOLDOWN);
+      }
+    },
+    [mimic.currentLevel, mimic.onCooldown, playSFX],
+  );
 
   const putPixelPocketOnCooldown = () => {
     setPixelPocket((prev) => ({
@@ -171,23 +188,29 @@ export const useSkills = ({ SFX_API, optionsAPI }) => {
     }));
   };
 
-  const activateBlink = useCallback((hardDrop) => {
-    if (blink.currentLevel) {
-      playSFX(TETROMINO_MERGE);
-      hardDrop();
-      removePixelPocketCooldown();
-    }
-  }, [blink.currentLevel, playSFX]);
+  const activateBlink = useCallback(
+    (hardDrop) => {
+      if (blink.currentLevel) {
+        playSFX(TETROMINO_MERGE);
+        hardDrop();
+        removePixelPocketCooldown();
+      }
+    },
+    [blink.currentLevel, playSFX],
+  );
 
-  const activateHold = useCallback((holdPlayerTetromino) => {
-    if (pixelPocket.currentLevel && !pixelPocket.onCooldown) {
-      holdPlayerTetromino();
-      playSFX(PIXEL_POCKET);
-      putPixelPocketOnCooldown();
-    } else {
-      playSFX(SKILL_ON_COOLDOWN);
-    }
-  }, [pixelPocket.currentLevel, pixelPocket.onCooldown, playSFX]);
+  const activateHold = useCallback(
+    (holdPlayerTetromino) => {
+      if (pixelPocket.currentLevel && !pixelPocket.onCooldown) {
+        holdPlayerTetromino();
+        playSFX(PIXEL_POCKET);
+        putPixelPocketOnCooldown();
+      } else {
+        playSFX(SKILL_ON_COOLDOWN);
+      }
+    },
+    [pixelPocket.currentLevel, pixelPocket.onCooldown, playSFX],
+  );
 
   const setSkillsToClassicMode = () => {
     setExp(0);
@@ -326,13 +349,6 @@ export const useSkills = ({ SFX_API, optionsAPI }) => {
       removeMimicCooldown,
       removePerfectionismCooldown,
     },
-    skills: [
-      clairvoyance,
-      pixelPocket,
-      mimic,
-      intuition,
-      blink,
-      perfectionism,
-    ],
+    skills: [clairvoyance, pixelPocket, mimic, intuition, blink, perfectionism],
   };
 };

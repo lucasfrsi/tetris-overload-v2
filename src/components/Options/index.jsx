@@ -126,7 +126,9 @@ const Options = ({ optionsAPI, goToMenu }) => {
                   value={SFXSlider.value}
                   onChange={(e) => changeSFXSliderValue(e.target.value)}
                 />
-                <span css={styles.sliderValue}>{parseInt(SFXSlider.value * 100, 10)}%</span>
+                <span css={styles.sliderValue}>
+                  {parseInt(SFXSlider.value * 100, 10)}%
+                </span>
                 <SVGToggleButton
                   state={!SFX}
                   SVGOn={sfxOn}
@@ -153,7 +155,9 @@ const Options = ({ optionsAPI, goToMenu }) => {
                   value={BGMSlider.value}
                   onChange={(e) => changeBGMSliderValue(e.target.value)}
                 />
-                <span css={styles.sliderValue}>{parseInt(BGMSlider.value * 100, 10)}%</span>
+                <span css={styles.sliderValue}>
+                  {parseInt(BGMSlider.value * 100, 10)}%
+                </span>
                 <SVGToggleButton
                   state={!BGM}
                   SVGOn={musicOn}
@@ -190,10 +194,7 @@ const Options = ({ optionsAPI, goToMenu }) => {
         </thead>
         <tbody>
           {Object.entries(keyBindings).map(([action, { key, code }]) => (
-            <tr
-              key={action}
-              onClick={() => openGetter(action, key, code)}
-            >
+            <tr key={action} onClick={() => openGetter(action, key, code)}>
               <td>{action}</td>
               <td>{key}</td>
               <td>{code}</td>
@@ -202,7 +203,11 @@ const Options = ({ optionsAPI, goToMenu }) => {
         </tbody>
       </table>
       <div css={styles.finalButtons}>
-        <Button name="Save and Return" onClick={goBackToMenu} disabled={!trackersAreFilled()} />
+        <Button
+          name="Save and Return"
+          onClick={goBackToMenu}
+          disabled={!trackersAreFilled()}
+        />
         <Button name="Reset to Default" onClick={resetToDefault} />
         <Button name="Unbind Keys" onClick={clearKeyBindings} />
       </div>

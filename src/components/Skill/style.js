@@ -40,7 +40,7 @@ const wrapper = css`
   position: absolute;
   background-color: black;
   border-radius: 50%;
-  padding: .6rem;
+  padding: 0.6rem;
 `;
 
 export const skillLevelWrapper = css`
@@ -71,7 +71,7 @@ export const skillStatus = styled.span`
 export const skillExpCost = css`
   position: absolute;
   font-size: 2rem;
-  color: rgba(51, 51, 51, .5);
+  color: rgba(51, 51, 51, 0.5);
 
   bottom: 1rem;
   right: 2.4rem;
@@ -79,28 +79,28 @@ export const skillExpCost = css`
 
 export const skillArrow = css`
   position: absolute;
-  top: .5rem;
-  left: -.5rem;
+  top: 0.5rem;
+  left: -0.5rem;
 
-  width: 0; 
-  height: 0; 
+  width: 0;
+  height: 0;
   border-left: 0.8rem solid transparent;
   border-right: 0.8rem solid transparent;
-  
+
   border-bottom: 0.8rem solid greenyellow;
   animation: 1s ease-in-out upAndDown infinite;
 
   @keyframes upAndDown {
     0% {
-      top: -.5rem;
+      top: -0.5rem;
     }
 
     50% {
-      top: .5rem;
+      top: 0.5rem;
     }
 
     100% {
-      top: -.5rem;
+      top: -0.5rem;
     }
   }
 `;

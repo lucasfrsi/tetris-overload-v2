@@ -9,7 +9,7 @@ export const StyledPicker = styled.div`
     background-color: transparent;
     outline: none;
     border: none;
-    padding: .8rem;
+    padding: 0.8rem;
 
     &:nth-of-type(1) {
       margin-right: auto;

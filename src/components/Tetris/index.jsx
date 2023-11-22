@@ -51,12 +51,24 @@ const Tetris = () => {
   const SFX_API = useSFX();
   const optionsAPI = useOptions({ BGM_API, SFX_API, isLocalStorageAvailable });
   const skillsAPI = useSkills({ SFX_API, optionsAPI });
-  const gameStatusAPI = useGameStatus({ skillsAPI, SFX_API, isLocalStorageAvailable, optionsAPI });
+  const gameStatusAPI = useGameStatus({
+    skillsAPI,
+    SFX_API,
+    isLocalStorageAvailable,
+    optionsAPI,
+  });
   const playerAPI = usePlayer({ SFX_API });
   const stageAPI = useStage({ skillsAPI, gameStatusAPI, playerAPI });
   const pieceHoldersAPI = usePieceHolders({ skillsAPI, playerAPI });
   const tetrisAPI = useTetris({
-    skillsAPI, gameStatusAPI, playerAPI, stageAPI, pieceHoldersAPI, SFX_API, BGM_API, optionsAPI,
+    skillsAPI,
+    gameStatusAPI,
+    playerAPI,
+    stageAPI,
+    pieceHoldersAPI,
+    SFX_API,
+    BGM_API,
+    optionsAPI,
   });
   const timersAPI = useTimers({ skillsAPI, gameStatusAPI, tetrisAPI, SFX_API });
   const controllersAPI = useControllers({
@@ -70,48 +82,27 @@ const Tetris = () => {
   });
 
   const {
-    state: {
-      gameMode,
-      keyBindings,
-    },
+    state: { gameMode, keyBindings },
   } = optionsAPI;
 
   const {
-    state: {
-      BGM,
-    },
-    actions: {
-      toggleMuteBGM,
-    },
+    state: { BGM },
+    actions: { toggleMuteBGM },
   } = BGM_API;
 
   const {
-    state: {
-      SFX,
-    },
-    actions: {
-      toggleMuteSFX,
-      playSFX,
-    },
+    state: { SFX },
+    actions: { toggleMuteSFX, playSFX },
   } = SFX_API;
 
   const {
-    state: {
-      exp,
-      clairvoyance,
-      pixelPocket,
-    },
+    state: { exp, clairvoyance, pixelPocket },
     skills,
-    actions: {
-      canSkillBeLeveled,
-      levelUpSkill,
-    },
+    actions: { canSkillBeLeveled, levelUpSkill },
   } = skillsAPI;
 
   const {
-    state: {
-      stage,
-    },
+    state: { stage },
   } = stageAPI;
 
   const {
@@ -157,16 +148,11 @@ const Tetris = () => {
   } = tetrisAPI;
 
   const {
-    actions: {
-      onKeyDown,
-      onKeyUp,
-    },
+    actions: { onKeyDown, onKeyUp },
   } = controllersAPI;
 
   const {
-    state: {
-      countdown,
-    },
+    state: { countdown },
   } = timersAPI;
 
   const onKeyDownHandler = (event) => {
@@ -198,7 +184,12 @@ const Tetris = () => {
             />
           )}
           {onCountdown && <Countdown count={countdown} playSFX={playSFX} />}
-          {paused && <Pause dialog={dialogIsOpen.state} pauseKeyBinding={keyBindings[PAUSE].key} />}
+          {paused && (
+            <Pause
+              dialog={dialogIsOpen.state}
+              pauseKeyBinding={keyBindings[PAUSE].key}
+            />
+          )}
           {dialogIsOpen.state && (
             <ConfirmationDialog
               type={dialogIsOpen.type}
@@ -217,7 +208,9 @@ const Tetris = () => {
                 </>
               ) : null}
               <StyledSkillsWrapper>
-                {gameMode === PROGRESSIVE_OVERLOAD_MODE && <Score name="Experience" value={exp} />}
+                {gameMode === PROGRESSIVE_OVERLOAD_MODE && (
+                  <Score name="Experience" value={exp} />
+                )}
                 {gameMode !== CLASSIC_MODE && (
                   <Skills
                     skills={skills}
@@ -245,11 +238,30 @@ const Tetris = () => {
               </StyledScoresWrapper>
               <hr />
               <StyledButtonsWrapper>
-                {(onCountdown || gameStarted || paused)
-                  ? <SideButton buttonName={paused ? 'unpause' : 'pause'} onClick={handlePauseButton} playSFX={playSFX} />
-                  : <SideButton buttonName="start" onClick={handleStartButton} playSFX={playSFX} />}
-                <SideButton buttonName="reset" onClick={handleResetButton} playSFX={playSFX} disabled={!gameStarted} />
-                <SideButton buttonName="menu" onClick={handleMenuButton} playSFX={playSFX} />
+                {onCountdown || gameStarted || paused ? (
+                  <SideButton
+                    buttonName={paused ? 'unpause' : 'pause'}
+                    onClick={handlePauseButton}
+                    playSFX={playSFX}
+                  />
+                ) : (
+                  <SideButton
+                    buttonName="start"
+                    onClick={handleStartButton}
+                    playSFX={playSFX}
+                  />
+                )}
+                <SideButton
+                  buttonName="reset"
+                  onClick={handleResetButton}
+                  playSFX={playSFX}
+                  disabled={!gameStarted}
+                />
+                <SideButton
+                  buttonName="menu"
+                  onClick={handleMenuButton}
+                  playSFX={playSFX}
+                />
               </StyledButtonsWrapper>
             </aside>
           </StyledTetrisLayout>

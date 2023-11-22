@@ -27,9 +27,25 @@ const Menu = ({ play, options, SFX, BGM, toggleSFX, toggleBGM, playSFX }) => {
       <span css={styles.title}>Overload</span>
       <div css={styles.menuOptions}>
         <div css={styles.buttons}>
-          <button type="button" tabIndex={-1} onClick={() => onClickHandler(play, BUTTON_SELECT)} onMouseEnter={onHoverHandler}>Play</button>
-          <button type="button" tabIndex={-1} onClick={() => onClickHandler(options, BUTTON_SELECT)} onMouseEnter={onHoverHandler}>Options</button>
-          <button type="button" tabIndex={-1} disabled>Credits <span>soon&trade;</span></button>
+          <button
+            type="button"
+            tabIndex={-1}
+            onClick={() => onClickHandler(play, BUTTON_SELECT)}
+            onMouseEnter={onHoverHandler}
+          >
+            Play
+          </button>
+          <button
+            type="button"
+            tabIndex={-1}
+            onClick={() => onClickHandler(options, BUTTON_SELECT)}
+            onMouseEnter={onHoverHandler}
+          >
+            Options
+          </button>
+          <button type="button" tabIndex={-1} disabled>
+            Credits <span>soon&trade;</span>
+          </button>
         </div>
         <div css={styles.icons}>
           <SVGToggleButton
@@ -55,14 +71,26 @@ const Menu = ({ play, options, SFX, BGM, toggleSFX, toggleBGM, playSFX }) => {
       <div css={styles.madeWithLove}>
         <span>
           made by&nbsp;
-          <a href="https://lucasfrsi.com/" target="_blank" rel="noopener noreferrer">
+          <a
+            href="https://lucasfrsi.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             @lucasfrsi
           </a>
         </span>
-        <a href="https://github.com/lucasfrsi" target="_blank" rel="noopener noreferrer">
+        <a
+          href="https://github.com/lucasfrsi"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <img src={github} alt="" />
         </a>
-        <a href="https://linkedin.com/in/lucasfrsi" target="_blank" rel="noopener noreferrer">
+        <a
+          href="https://linkedin.com/in/lucasfrsi"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <img src={linkedin} alt="" />
         </a>
       </div>

@@ -10,7 +10,7 @@ export const dialogBoxWrapper = css`
   flex-direction: column;
   align-items: center;
 
-  background-color: rgba(1, 1, 1, .5);
+  background-color: rgba(1, 1, 1, 0.5);
 `;
 
 export const dialogBox = css`
@@ -22,9 +22,7 @@ export const dialogBox = css`
 
   border: 2px solid white;
   padding: 2rem;
-  background-color: rgba(1, 1, 1, .3);
-
-  
+  background-color: rgba(1, 1, 1, 0.3);
 `;
 
 export const buttonsWrapper = css`

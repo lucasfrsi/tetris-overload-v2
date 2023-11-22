@@ -4,40 +4,21 @@ import { useInterval } from './useInterval';
 
 export const useTimers = ({ skillsAPI, gameStatusAPI, tetrisAPI, SFX_API }) => {
   const {
-    state: {
-      mimic,
-      perfectionism,
-    },
-    actions: {
-      removeMimicCooldown,
-      removePerfectionismCooldown,
-    },
+    state: { mimic, perfectionism },
+    actions: { removeMimicCooldown, removePerfectionismCooldown },
   } = skillsAPI;
 
   const {
-    state: {
-      ticking,
-      dropTime,
-      onCountdown,
-      gameStarted,
-    },
-    actions: {
-      setOnCountdown,
-    },
+    state: { ticking, dropTime, onCountdown, gameStarted },
+    actions: { setOnCountdown },
   } = gameStatusAPI;
 
   const {
-    actions: {
-      startGame,
-      resumeGame,
-      drop,
-    },
+    actions: { startGame, resumeGame, drop },
   } = tetrisAPI;
 
   const {
-    actions: {
-      playSFX,
-    },
+    actions: { playSFX },
   } = SFX_API;
 
   // TIMERS
@@ -63,12 +44,20 @@ export const useTimers = ({ skillsAPI, gameStatusAPI, tetrisAPI, SFX_API }) => {
   }, [mimic.cooldown, mimic.currentLevel, mimic.onCooldown]);
 
   useEffect(() => {
-    if (perfectionism.onCooldown && perfectionismCounter.current.cooldown === 0) {
-      perfectionismCounter.current.cooldown = perfectionism.cooldown[perfectionism.currentLevel];
+    if (
+      perfectionism.onCooldown &&
+      perfectionismCounter.current.cooldown === 0
+    ) {
+      perfectionismCounter.current.cooldown =
+        perfectionism.cooldown[perfectionism.currentLevel];
       // Set mimic counter to 1
       if (mimicCounter.current.cooldown > 1) mimicCounter.current.cooldown = 1;
     }
-  }, [perfectionism.cooldown, perfectionism.currentLevel, perfectionism.onCooldown]);
+  }, [
+    perfectionism.cooldown,
+    perfectionism.currentLevel,
+    perfectionism.onCooldown,
+  ]);
 
   // Skills Timer
   useInterval(() => {

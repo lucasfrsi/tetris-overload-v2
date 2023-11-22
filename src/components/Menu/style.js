@@ -63,8 +63,8 @@ export const buttons = css`
         font-size: 1.6rem;
         color: ${colors['black-1']};
         position: absolute;
-        bottom: .5rem;
-        right: .5rem;
+        bottom: 0.5rem;
+        right: 0.5rem;
       }
     }
   }
@@ -73,7 +73,7 @@ export const buttons = css`
 export const title = css`
   text-align: center;
   font-size: 8rem;
-  
+
   &:nth-of-type(2) {
     margin-bottom: 8rem;
   }
@@ -89,7 +89,7 @@ export const madeWithLove = css`
   right: 1rem;
   text-transform: initial;
   font-size: 1.2rem;
-  
+
   a {
     color: white;
     text-decoration: none;

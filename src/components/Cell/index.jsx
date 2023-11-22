@@ -12,11 +12,9 @@ const Cell = ({ type }) => (
 );
 
 Cell.propTypes = {
-  type: PropTypes.arrayOf(PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.string,
-    PropTypes.bool,
-  ])).isRequired,
+  type: PropTypes.arrayOf(
+    PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.bool]),
+  ).isRequired,
 };
 
 // React.memo makes sure only changed cells are re-rendered

@@ -59,7 +59,6 @@ export const slider = css`
   &::-webkit-slider-thumb {
     appearance: none;
     cursor: pointer;
-    
 
     width: 1.6rem;
     height: 1.6rem;
@@ -95,12 +94,12 @@ export const sliderValue = css`
 
 export const keyBindingsTable = css`
   border-collapse: separate;
-  border-spacing: 0.5rem .5rem;
+  border-spacing: 0.5rem 0.5rem;
   width: 97.5%;
   margin: 0 auto;
 
   thead tr th {
-    padding: .5rem 0.5rem 0.5rem 1rem;
+    padding: 0.5rem 0.5rem 0.5rem 1rem;
     text-transform: uppercase;
     font-weight: 500;
     border: 1px solid white;
@@ -111,7 +110,7 @@ export const keyBindingsTable = css`
   }
 
   tr td:nth-of-type(1) {
-    padding: .5rem 0.5rem 0.5rem 1rem;
+    padding: 0.5rem 0.5rem 0.5rem 1rem;
     width: 40%;
     text-transform: uppercase;
   }

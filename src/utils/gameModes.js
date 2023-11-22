@@ -12,8 +12,4 @@ export const CLASSIC_OVERLOAD_MODE = 'Tetris Overload';
 // Features are enabled as you gather experience and learn skills
 export const PROGRESSIVE_OVERLOAD_MODE = 'Progressive Tetris';
 
-export default [
-  PROGRESSIVE_OVERLOAD_MODE,
-  CLASSIC_OVERLOAD_MODE,
-  CLASSIC_MODE,
-];
+export default [PROGRESSIVE_OVERLOAD_MODE, CLASSIC_OVERLOAD_MODE, CLASSIC_MODE];

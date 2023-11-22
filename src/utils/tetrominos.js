@@ -134,8 +134,5 @@ function tetrominoGeneration() {
   };
 }
 
-export const {
-  randomTetromino,
-  createNextPiecesArray,
-  restartPool,
-} = tetrominoGeneration();
+export const { randomTetromino, createNextPiecesArray, restartPool } =
+  tetrominoGeneration();

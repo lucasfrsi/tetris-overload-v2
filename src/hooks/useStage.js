@@ -20,19 +20,22 @@ export const useStage = ({ skillsAPI, gameStatusAPI, playerAPI }) => {
 
   useEffect(() => {
     setRowsCleared(0);
-    const sweepRows = (newStage) => newStage.reduce((acc, row) => {
-      if (row.findIndex((cell) => cell[0] === 0) === -1) {
-        setRowsCleared((prev) => prev + 1);
-        acc.unshift(new Array(newStage[0].length).fill([0, 'clear']));
+    const sweepRows = (newStage) =>
+      newStage.reduce((acc, row) => {
+        if (row.findIndex((cell) => cell[0] === 0) === -1) {
+          setRowsCleared((prev) => prev + 1);
+          acc.unshift(new Array(newStage[0].length).fill([0, 'clear']));
+          return acc;
+        }
+        acc.push(row);
         return acc;
-      }
-      acc.push(row);
-      return acc;
-    }, []);
+      }, []);
 
     const updateStage = (prevStage) => {
       // First flush the stage
-      const newStage = prevStage.map((row) => row.map((cell) => (cell[1] === 'clear' ? [0, 'clear'] : cell)));
+      const newStage = prevStage.map((row) =>
+        row.map((cell) => (cell[1] === 'clear' ? [0, 'clear'] : cell)),
+      );
 
       // Tetromino Highlight Logic
       if (intuition.currentLevel && player.tetromino.shape.length > 1) {
@@ -84,8 +87,10 @@ export const useStage = ({ skillsAPI, gameStatusAPI, playerAPI }) => {
   }, [
     gameOver,
     intuition.currentLevel,
-    player, getPlayerNextPiece,
-    setRowsCleared, updatePreCollisionY,
+    player,
+    getPlayerNextPiece,
+    setRowsCleared,
+    updatePreCollisionY,
   ]);
 
   const resetStage = useCallback(() => {

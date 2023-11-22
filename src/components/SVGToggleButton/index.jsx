@@ -3,7 +3,15 @@ import PropTypes from 'prop-types';
 import { BUTTON_TOGGLE } from 'utils/SFXPaths';
 import { StyledSVG, StyledToggleButton } from './style';
 
-const SVGToggleButton = ({ state, SVGOn, SVGOff, altOn, altOff, toggleAction, playSFX }) => {
+const SVGToggleButton = ({
+  state,
+  SVGOn,
+  SVGOff,
+  altOn,
+  altOff,
+  toggleAction,
+  playSFX,
+}) => {
   const onClickHandler = () => {
     playSFX(BUTTON_TOGGLE);
     toggleAction();

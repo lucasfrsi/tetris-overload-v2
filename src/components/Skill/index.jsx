@@ -4,13 +4,7 @@ import icons from 'utils/skillsMap';
 import * as styles from './style';
 
 const Skill = ({ skill, canSkillBeLeveled, levelUpSkill }) => {
-  const {
-    name,
-    expCost,
-    onCooldown,
-    currentLevel,
-    passive,
-  } = skill;
+  const { name, expCost, onCooldown, currentLevel, passive } = skill;
 
   let status;
   if (currentLevel === 0) {

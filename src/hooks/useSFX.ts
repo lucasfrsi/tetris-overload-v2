@@ -1,0 +1,114 @@
+import { useState, useCallback } from 'react';
+import { Howl } from 'howler';
+import SFXSprite from 'assets/sfx/sfx_sprite.mp3';
+
+// Available SFX
+export const SFX = {
+  BUTTON_HOVER: 'BUTTON_HOVER',
+  BUTTON_SELECT: 'BUTTON_SELECT',
+  BUTTON_START: 'BUTTON_START',
+  BUTTON_TOGGLE: 'BUTTON_TOGGLE',
+  TETROMINO_ROTATE: 'TETROMINO_ROTATE',
+  TETROMINO_MERGE: 'TETROMINO_MERGE',
+  TETROMINO_MOVE: 'TETROMINO_MOVE',
+  SKILL_ON_COOLDOWN: 'SKILL_ON_COOLDOWN',
+  SKILL_LEARNED: 'SKILL_LEARNED',
+  SKILL_IS_UP: 'SKILL_IS_UP',
+  TIME_STOP_DOWN: 'TIME_STOP_DOWN',
+  TIME_STOP_UP: 'TIME_STOP_UP',
+  MIMIC: 'MIMIC',
+  PIXEL_POCKET: 'PIXEL_POCKET',
+  PERFECTIONISM: 'PERFECTIONISM',
+  PAUSE_IN: 'PAUSE_IN',
+  PAUSE_OUT: 'PAUSE_OUT',
+  GAME_OVER: 'GAME_OVER',
+  CLEAR_SINGLE: 'CLEAR_SINGLE',
+  CLEAR_DOUBLE: 'CLEAR_DOUBLE',
+  CLEAR_TRIPLE: 'CLEAR_TRIPLE',
+  CLEAR_TETRIS: 'CLEAR_TETRIS',
+  LEVEL_UP: 'LEVEL_UP',
+  NEW_HIGHSCORE: 'NEW_HIGHSCORE',
+  VO_1: 'VO_1',
+  VO_2: 'VO_2',
+  VO_3: 'VO_3',
+  VO_GO: 'VO_GO',
+  VO_GAME_OVER: 'VO_GAME_OVER',
+  VO_CONGRATULATIONS: 'VO_CONGRATULATIONS',
+  VO_NEW_HIGHSCORE: 'VO_NEW_HIGHSCORE',
+  VO_LEVEL_UP: 'VO_LEVEL_UP',
+} as const;
+type Keys = keyof typeof SFX;
+type SoundEffect = (typeof SFX)[Keys];
+
+// Howl Instance & Functions
+const SFXPlayer = new Howl({
+  src: [SFXSprite],
+  sprite: {
+    [SFX.VO_1]: [0, 490.9297052154195],
+    [SFX.VO_2]: [2000, 581.4058956916099],
+    [SFX.VO_3]: [4000, 576.5759637188213],
+    [SFX.BUTTON_HOVER]: [6000, 265.1927437641728],
+    [SFX.BUTTON_SELECT]: [8000, 925.895691609977],
+    [SFX.BUTTON_START]: [10000, 2830],
+    [SFX.BUTTON_TOGGLE]: [14000, 86.14512471655367],
+    [SFX.CLEAR_DOUBLE]: [16000, 1726.8253968253973],
+    [SFX.CLEAR_SINGLE]: [19000, 1606.5532879818604],
+    [SFX.CLEAR_TETRIS]: [22000, 2003.356009070295],
+    [SFX.PERFECTIONISM]: [26000, 1236.9841269841259],
+    [SFX.CLEAR_TRIPLE]: [29000, 1006.5079365079371],
+    [SFX.VO_CONGRATULATIONS]: [32000, 1296.4852607709786],
+    [SFX.GAME_OVER]: [35000, 1758.5941043083862],
+    [SFX.VO_GAME_OVER]: [38000, 1277.1428571428557],
+    [SFX.VO_GO]: [41000, 596.9160997732458],
+    [SFX.LEVEL_UP]: [43000, 1771.678004535147],
+    [SFX.VO_LEVEL_UP]: [46000, 783.9682539682542],
+    [SFX.MIMIC]: [48000, 2197.84580498866],
+    [SFX.NEW_HIGHSCORE]: [52000, 4575.3514739229],
+    [SFX.VO_NEW_HIGHSCORE]: [58000, 1135.623582766442],
+    [SFX.PAUSE_IN]: [61000, 259.7732426303878],
+    [SFX.PAUSE_OUT]: [63000, 260.13605442177123],
+    [SFX.PIXEL_POCKET]: [65000, 280.6349206349239],
+    [SFX.SKILL_IS_UP]: [67000, 468.5260770975077],
+    [SFX.SKILL_LEARNED]: [69000, 461.0884353741511],
+    [SFX.SKILL_ON_COOLDOWN]: [71000, 191.9954648526101],
+    [SFX.TETROMINO_MERGE]: [73000, 548.9795918367406],
+    [SFX.TETROMINO_MOVE]: [75000, 48.934240362811465],
+    [SFX.TETROMINO_ROTATE]: [77000, 139.2970521541912],
+    [SFX.TIME_STOP_DOWN]: [79000, 1858.5487528344656],
+    [SFX.TIME_STOP_UP]: [82000, 1858.5487528344656],
+  },
+  mute: true,
+});
+
+const getSFXVolume = () => SFXPlayer.volume();
+const setSFXVolume = (value: number) => SFXPlayer.volume(value);
+
+// Hook
+export const useSFX = () => {
+  const [mute, setMute] = useState(SFXPlayer.mute());
+
+  const toggleSFXMute = () => {
+    setMute((prev) => {
+      const toggledMute = !prev;
+
+      SFXPlayer.mute(toggledMute);
+      return toggledMute;
+    });
+  };
+
+  const playSFX = useCallback((soundEffect: SoundEffect) => {
+    if (!SFXPlayer.mute()) SFXPlayer.play(soundEffect);
+  }, []);
+
+  return {
+    state: {
+      mute,
+    },
+    actions: {
+      toggleSFXMute,
+      getSFXVolume,
+      setSFXVolume,
+      playSFX,
+    },
+  };
+};

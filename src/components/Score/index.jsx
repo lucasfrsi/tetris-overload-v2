@@ -5,12 +5,8 @@ import { StyledScore, Title, Value } from './style';
 
 const Score = ({ name, value }) => (
   <StyledScore>
-    <Title>
-      {name}
-    </Title>
-    <Value>
-      {value}
-    </Value>
+    <Title>{name}</Title>
+    <Value>{value}</Value>
   </StyledScore>
 );
 

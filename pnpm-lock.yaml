@@ -31,6 +31,9 @@ devDependencies:
   '@types/eslint':
     specifier: ~8.44
     version: 8.44.7
+  '@types/howler':
+    specifier: ~2.2
+    version: 2.2.11
   '@types/prop-types':
     specifier: ~15.7
     version: 15.7.11
@@ -915,6 +918,10 @@ packages:
 
   /@types/estree@1.0.5:
     resolution: {integrity: sha512-/kYRxGDLWzHOB7q+wtSUQlFrtcdUccpfy+X+9iMBpHK8QLLhx2wIPYuS5DYtR9Wa/YlZAbIovy7qVdB1Aq6Lyw==}
+    dev: true
+
+  /@types/howler@2.2.11:
+    resolution: {integrity: sha512-7aBoUL6RbSIrqKnpEgfa1wSNUBK06mn08siP2QI0zYk7MXfEJAaORc4tohamQYqCqVESoDyRWSdQn2BOKWj2Qw==}
     dev: true
 
   /@types/istanbul-lib-coverage@2.0.6:

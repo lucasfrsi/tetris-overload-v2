@@ -10,7 +10,7 @@ export const sideButton = css`
 
   margin: 1rem auto;
   padding: 1rem;
-  
+
   width: 90%;
 
   text-transform: uppercase;
