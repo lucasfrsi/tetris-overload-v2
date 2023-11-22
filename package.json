@@ -10,7 +10,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "lint": "eslint --fix --ext ts,tsx . && prettier --write .",
+    "lint": "eslint --fix --ext ts,tsx . && prettier --write . && stylelint \"**/*.{ts,tsx}\"",
     "preview": "vite preview",
     "test": "vitest",
     "coverage": "vitest run --coverage",
@@ -19,13 +19,17 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "howler": "~2.2",
+    "prop-types": "~15.8",
     "react": "~18.2",
-    "react-dom": "~18.2"
+    "react-dom": "~18.2",
+    "styled-components": "~6.1"
   },
   "devDependencies": {
     "@commitlint/cli": "~18.4",
     "@commitlint/config-conventional": "~18.4",
     "@types/eslint": "~8.44",
+    "@types/prop-types": "~15.7",
     "@types/react": "~18.2",
     "@types/react-dom": "~18.2",
     "@typescript-eslint/eslint-plugin": "~6.10",
@@ -42,7 +46,10 @@
     "husky": "~8.0",
     "jsdom": "~22.1",
     "lint-staged": "~15.1",
+    "postcss-styled-syntax": "~0.5",
     "prettier": "~3.1",
+    "stylelint": "~15.11",
+    "stylelint-config-standard": "~34.0",
     "typescript": "~5.2",
     "vite": "~5.0",
     "vite-tsconfig-paths": "~4.2",
@@ -51,7 +58,8 @@
   "lint-staged": {
     "*.{ts,tsx}": [
       "eslint --fix",
-      "prettier --write"
+      "prettier --write",
+      "stylelint"
     ],
     "*.{css,scss,html,json,md,yml,yaml}": "prettier --write"
   },

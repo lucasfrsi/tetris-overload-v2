@@ -3,3 +3,4 @@
 ## To-Dos
 
 - [ ] Write tests
+- [ ] Separate Eslint, Prettier and stylelint
