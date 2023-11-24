@@ -1,8 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
-import App from '@/app';
 import GlobalStyle from '@/style/globalStyle';
+
+import { Provider } from 'react-redux';
+import { store } from '@/app/store';
+
+import App from '@/app';
 
 function getMountElement(id: string) {
   let element = document.getElementById(id);
@@ -17,6 +21,8 @@ function getMountElement(id: string) {
 ReactDOM.createRoot(getMountElement('root')).render(
   <React.StrictMode>
     <GlobalStyle />
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>,
 );

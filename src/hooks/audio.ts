@@ -1,46 +1,22 @@
-import { useState, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Howl } from 'howler';
+import { BGM, BackgroundMusic, SFX, SoundEffect } from '@/data/audio';
+import BGMSprite from '@/assets/bgm/bgm_sprite.mp3';
 import SFXSprite from 'assets/sfx/sfx_sprite.mp3';
 
-// Available SFX
-export const SFX = {
-  BUTTON_HOVER: 'BUTTON_HOVER',
-  BUTTON_SELECT: 'BUTTON_SELECT',
-  BUTTON_START: 'BUTTON_START',
-  BUTTON_TOGGLE: 'BUTTON_TOGGLE',
-  TETROMINO_ROTATE: 'TETROMINO_ROTATE',
-  TETROMINO_MERGE: 'TETROMINO_MERGE',
-  TETROMINO_MOVE: 'TETROMINO_MOVE',
-  SKILL_ON_COOLDOWN: 'SKILL_ON_COOLDOWN',
-  SKILL_LEARNED: 'SKILL_LEARNED',
-  SKILL_IS_UP: 'SKILL_IS_UP',
-  TIME_STOP_DOWN: 'TIME_STOP_DOWN',
-  TIME_STOP_UP: 'TIME_STOP_UP',
-  MIMIC: 'MIMIC',
-  PIXEL_POCKET: 'PIXEL_POCKET',
-  PERFECTIONISM: 'PERFECTIONISM',
-  PAUSE_IN: 'PAUSE_IN',
-  PAUSE_OUT: 'PAUSE_OUT',
-  GAME_OVER: 'GAME_OVER',
-  CLEAR_SINGLE: 'CLEAR_SINGLE',
-  CLEAR_DOUBLE: 'CLEAR_DOUBLE',
-  CLEAR_TRIPLE: 'CLEAR_TRIPLE',
-  CLEAR_TETRIS: 'CLEAR_TETRIS',
-  LEVEL_UP: 'LEVEL_UP',
-  NEW_HIGHSCORE: 'NEW_HIGHSCORE',
-  VO_1: 'VO_1',
-  VO_2: 'VO_2',
-  VO_3: 'VO_3',
-  VO_GO: 'VO_GO',
-  VO_GAME_OVER: 'VO_GAME_OVER',
-  VO_CONGRATULATIONS: 'VO_CONGRATULATIONS',
-  VO_NEW_HIGHSCORE: 'VO_NEW_HIGHSCORE',
-  VO_LEVEL_UP: 'VO_LEVEL_UP',
-} as const;
-type Keys = keyof typeof SFX;
-type SoundEffect = (typeof SFX)[Keys];
+// Players
+const BGMPlayer = new Howl({
+  src: BGMSprite,
+  sprite: {
+    [BGM.INGAME]: [0, 204930.61224489796, true],
+    [BGM.MENU]: [206000, 81397.55102040817, true],
+  },
+  mute: true,
+});
 
-// Howl Instance & Functions
+const getBGMVolume = () => BGMPlayer.volume();
+const setBGMVolume = (value: number) => BGMPlayer.volume(value);
+
 const SFXPlayer = new Howl({
   src: [SFXSprite],
   sprite: {
@@ -83,18 +59,83 @@ const SFXPlayer = new Howl({
 const getSFXVolume = () => SFXPlayer.volume();
 const setSFXVolume = (value: number) => SFXPlayer.volume(value);
 
-// Hook
+// Hooks
+export const useBGM = () => {
+  const [mute, setMute] = useState(BGMPlayer.mute());
+  const [id, setId] = useState<null | number>(null);
+
+  const toggleBGMMute = () => {
+    setMute((prev) => {
+      const toggledMute = !prev;
+
+      return toggledMute;
+    });
+  };
+
+  useEffect(() => {
+    BGMPlayer.mute(mute);
+  }, [mute]);
+
+  const playBGM = useCallback(
+    (bgm: BackgroundMusic) => {
+      if (!mute) {
+        let currentID = id;
+
+        if (currentID) {
+          BGMPlayer.play(currentID);
+        } else {
+          currentID = BGMPlayer.play(bgm);
+          setId(currentID);
+        }
+
+        BGMPlayer.fade(0, getBGMVolume(), 500, currentID);
+      }
+    },
+    [mute, id],
+  );
+
+  const stopBGM = useCallback(() => {
+    BGMPlayer.stop();
+    setId(null);
+  }, []);
+
+  const pauseBGM = useCallback(() => {
+    if (id) BGMPlayer.pause(id);
+  }, [id]);
+
+  useEffect(() => {
+    if (mute) {
+      stopBGM();
+    } else {
+      playBGM(BGM.MENU);
+    }
+  }, [mute, playBGM, stopBGM]);
+
+  return {
+    state: {
+      mute,
+    },
+    actions: {
+      toggleBGMMute,
+      playBGM,
+      stopBGM,
+      pauseBGM,
+      getBGMVolume,
+      setBGMVolume,
+    },
+  };
+};
+
 export const useSFX = () => {
   const [mute, setMute] = useState(SFXPlayer.mute());
 
   const toggleSFXMute = () => {
-    setMute((prev) => {
-      const toggledMute = !prev;
-
-      SFXPlayer.mute(toggledMute);
-      return toggledMute;
-    });
+    setMute((prev) => !prev);
   };
+
+  useEffect(() => {
+    SFXPlayer.mute(mute);
+  }, [mute]);
 
   const playSFX = useCallback((soundEffect: SoundEffect) => {
     if (!SFXPlayer.mute()) SFXPlayer.play(soundEffect);
